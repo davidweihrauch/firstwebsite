@@ -3,7 +3,7 @@ body {
     max-width: 800px;
     margin: auto;
     padding: 20px;
-    background-color: #fafafa;
+    background-color: #f4f1ee;
     line-height: 1.6;
 }
 
@@ -35,7 +35,7 @@ body {
 
 
 h1, h2 {
-    color: #333;
+    color: #e2e2e2;
 }
 
 a {
@@ -68,7 +68,7 @@ img {
 }
 
 .site-header p {
-    color: #666;
+    color: #606060;
 }
 
 .posts {
@@ -78,7 +78,7 @@ img {
 }
 
 .post-card {
-    background: white;
+    background: #ffffff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
@@ -93,9 +93,72 @@ img {
 
 .post-card h2 {
     margin-top: 0;
+    color: #515151;
 }
 
 .post-card .date {
     color: #777;
     font-size: 0.9em;
+}
+
+.post-card img {
+    width: 100%;
+    aspect-ratio: 3 / 2;  /* ← choose your format */
+    object-fit: cover;    /* crops nicely */
+}
+
+.hero {
+    height: 60vh;
+    min-height: 300px;
+    background-image: url("../images/background/skyline2.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+/* dark overlay for readability */
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.hero {
+    position: relative;
+}
+
+.hero-content {
+    position: relative;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: auto;
+}
+
+@media (max-width: 600px) {
+    .hero {
+        height: 50vh;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
 }
