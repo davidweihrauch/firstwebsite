@@ -35,7 +35,7 @@ body {
 
 
 h1, h2 {
-    color: #e2e2e2;
+    color: #000000;
 }
 
 a {
@@ -93,7 +93,7 @@ img {
 
 .post-card h2 {
     margin-top: 0;
-    color: #0b0b0b;
+    color: #515151;
 }
 
 .post-card .date {
