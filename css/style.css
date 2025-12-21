@@ -7,6 +7,33 @@ body {
     line-height: 1.6;
 }
 
+@media (max-width: 600px) {
+    body {
+        font-size: 1.05em;
+    }
+    
+    .post-card {
+        border-radius: 12px;
+    }
+
+    .post-content {
+        padding: 16px;
+    }
+    
+    .post-card img {
+        height: 220px;
+    }
+    
+    .site-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .site-header p {
+        font-size: 1rem;
+    }
+}
+
+
 h1, h2 {
     color: #333;
 }
