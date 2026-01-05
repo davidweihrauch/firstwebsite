@@ -33,6 +33,20 @@ body {
     }
 }
 
+figure {
+    border: 1px #cccccc00 solid;
+    padding: 2px;
+    margin: auto; /* Centers the figure on the page */
+    max-width: 500px; /* Controls the maximum width of the image and caption */
+}
+
+figcaption {
+    background-color: #4141414d;
+    color: #000000;
+    font-style: italic;
+    padding: 3px;
+    text-align: center;
+}
 
 h1, h2 {
     color: #000000;
