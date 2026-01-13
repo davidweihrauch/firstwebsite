@@ -53,6 +53,7 @@
     <img id="lightboxImg" alt="">
   </div>
 
+
 <script>
 (async function(){
   const gallery   = document.getElementById('gallery');
@@ -60,17 +61,62 @@
   const lightImg  = document.getElementById('lightboxImg');
   const closeBtn  = lightbox.querySelector('button.close');
 
-  const res  = await fetch('gallery.json'); // adjust if hosted elsewhere
-  const urls = await res.json();
+  // Compute repo base for GitHub Project Pages (e.g., /repo-name/)
+  const parts = location.pathname.split('/').filter(Boolean);
+  const repoBase = parts.length > 0 ? `/${parts[0]}/` : '/';
 
-  for (const url of urls) {
+  // Resolve URLs robustly for both User sites and Project Pages
+  function resolveUrl(u) {
+    if (!u) return '';
+    if (/^https?:\/\//i.test(u)) return u;        // external URL
+    if (u.startsWith('/')) {                       // absolute from domain root
+      // Map to repo base if we're on a Project Page
+      const isProject = parts.length > 0;
+      return isProject ? repoBase + u.replace(/^\//, '') : u;
+    }
+    // Relative to current page (root)
+    return new URL(u, location.href).toString();
+  }
+
+  let res;
+  try { res = await fetch('./gallery.json', { cache: 'no-cache' }); }
+  catch (err) {
+    console.error('Network error loading gallery.json:', err);
+    gallery.innerHTML = '<p style="opacity:.7">Network error loading gallery.json</p>';
+    return;
+  }
+  if (!res.ok) {
+    console.error('Failed to load gallery.json', res.status, res.statusText);
+    gallery.innerHTML = '<p style="opacity:.7">Could not load gallery.json.</p>';
+    return;
+  }
+
+  let urls;
+  try { urls = await res.json(); }
+  catch (err) {
+    console.error('JSON parse error. Check gallery.json.', err);
+    gallery.innerHTML = '<p style="opacity:.7">Invalid gallery.json format.</p>';
+    return;
+  }
+
+  for (const original of urls) {
+    const url = resolveUrl(original);
     const fig = document.createElement('figure');
     fig.dataset.full = url;
+
     const img = document.createElement('img');
     img.src = url;
     img.loading = 'lazy';
     img.decoding = 'async';
-    img.alt = url.split('/').pop().replace(/\.[^.]+$/,'').replace(/[-_]/g,' ');
+    img.alt = (original || '').split('/').pop()?.replace(/\.[^.]+$/,'').replace(/[-_]/g,' ') || 'image';
+
+    // Log broken images so you can click and check the resolved path
+    img.addEventListener('error', () => {
+      console.error('Image failed:', { original, resolved: url });
+      img.alt = 'Image failed to load';
+      img.style.opacity = '0.6';
+    });
+
     fig.appendChild(img);
     fig.addEventListener('click', () => openLightbox(url, img.alt));
     gallery.appendChild(fig);
@@ -78,7 +124,7 @@
 
   function openLightbox(src, alt) {
     lightImg.src = src;
-    lightImg.alt = alt;
+    lightImg.alt = alt || '';
     lightbox.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
@@ -92,6 +138,7 @@
   window.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') closeLightbox(); });
 })();
 </script>
+
 </body>
 </html>
 
