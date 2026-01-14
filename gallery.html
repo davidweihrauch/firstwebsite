@@ -40,8 +40,8 @@
 </head>
 <body>
   <header>
-    <h1>Gallery</h1>
-    <p style="opacity:.7">Tap any image to view it larger</p>
+    <h1>Gallerie</h1>
+    <p style="opacity:.7">Zum Vergrößern auf die Fotos klicken.</p>
   </header>
 
   <main>
@@ -54,53 +54,29 @@
   </div>
 
 
+
 <script>
-(async function(){
+(async function () {
   const gallery   = document.getElementById('gallery');
   const lightbox  = document.getElementById('lightbox');
   const lightImg  = document.getElementById('lightboxImg');
   const closeBtn  = lightbox.querySelector('button.close');
 
-  // Compute repo base for GitHub Project Pages (e.g., /repo-name/)
-  const parts = location.pathname.split('/').filter(Boolean);
-  const repoBase = parts.length > 0 ? `/${parts[0]}/` : '/';
-
-  // Resolve URLs robustly for both User sites and Project Pages
-  function resolveUrl(u) {
-    if (!u) return '';
-    if (/^https?:\/\//i.test(u)) return u;        // external URL
-    if (u.startsWith('/')) {                       // absolute from domain root
-      // Map to repo base if we're on a Project Page
-      const isProject = parts.length > 0;
-      return isProject ? repoBase + u.replace(/^\//, '') : u;
-    }
-    // Relative to current page (root)
-    return new URL(u, location.href).toString();
-  }
-
-  let res;
-  try { res = await fetch('./gallery.json', { cache: 'no-cache' }); }
-  catch (err) {
-    console.error('Network error loading gallery.json:', err);
-    gallery.innerHTML = '<p style="opacity:.7">Network error loading gallery.json</p>';
-    return;
-  }
+  const res = await fetch('./gallery.json', { cache: 'no-cache' });
   if (!res.ok) {
-    console.error('Failed to load gallery.json', res.status, res.statusText);
     gallery.innerHTML = '<p style="opacity:.7">Could not load gallery.json.</p>';
     return;
   }
+  const urls = await res.json();
 
-  let urls;
-  try { urls = await res.json(); }
-  catch (err) {
-    console.error('JSON parse error. Check gallery.json.', err);
-    gallery.innerHTML = '<p style="opacity:.7">Invalid gallery.json format.</p>';
-    return;
+  // 🔀 Fisher–Yates shuffle (in-place)
+  for (let i = urls.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [urls[i], urls[j]] = [urls[j], urls[i]];
   }
 
-  for (const original of urls) {
-    const url = resolveUrl(original);
+  // Build the grid (same as before)
+  for (const url of urls) {
     const fig = document.createElement('figure');
     fig.dataset.full = url;
 
@@ -108,14 +84,7 @@
     img.src = url;
     img.loading = 'lazy';
     img.decoding = 'async';
-    img.alt = (original || '').split('/').pop()?.replace(/\.[^.]+$/,'').replace(/[-_]/g,' ') || 'image';
-
-    // Log broken images so you can click and check the resolved path
-    img.addEventListener('error', () => {
-      console.error('Image failed:', { original, resolved: url });
-      img.alt = 'Image failed to load';
-      img.style.opacity = '0.6';
-    });
+    img.alt = url.split('/').pop().replace(/\.[^.]+$/,'').replace(/[-_]/g,' ');
 
     fig.appendChild(img);
     fig.addEventListener('click', () => openLightbox(url, img.alt));
@@ -138,6 +107,7 @@
   window.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') closeLightbox(); });
 })();
 </script>
+
 
 </body>
 </html>
