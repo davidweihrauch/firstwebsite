@@ -17,40 +17,41 @@
          background: var(--bg); color: var(--text); }
   header { padding: 20px; text-align: center; }
   
-  /* Gallery grid — unchanged */
+
+  /* Responsive square grid */
   .gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* adjust 160px as you like */
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* adjust size */
     gap: 10px;
     padding: 10px;
     max-width: 1200px;
     margin: 0 auto 60px;
   }
 
-  /* Make each tile a square */
+  /* Each tile is a perfect square */
   figure {
     margin: 0;
-    background: #14171a;        /* your card color */
     border-radius: 10px;
     overflow: hidden;
     cursor: zoom-in;
     box-shadow: 0 6px 20px rgba(0,0,0,.25);
-
-    /* 👇 The key line for 1:1 tiles */
-    aspect-ratio: 1 / 1;
+    background: #14171a;    /* background “letterbox” color */
+    aspect-ratio: 1 / 1;     /* 👈 square */
   }
 
-  /* Image fills the square and crops nicely */
+  /* Show the whole image, no cropping */
   figure img {
     width: 100%;
     height: 100%;
     display: block;
-    object-fit: cover;
+    object-fit: contain;      /* 👈 key change: NO CROPPING */
+    object-position: center;  /* center the image within square */
 
     /* optional hover effect */
-    transition: transform .25s ease;
+    transition: transform .25s ease, opacity .25s ease;
   }
-  figure:hover img { transform: scale(1.03); }
+  figure:hover img { transform: scale(1.02); opacity: .98; }
+
 
   @media (min-width:768px){ figure img { height: 220px; } }
   @media (min-width:1024px){ figure img { height: 240px; } }
@@ -61,6 +62,14 @@
                   box-shadow: 0 20px 60px rgba(0,0,0,.5); }
   .lightbox button.close { position:absolute; top:10px; right:10px; border:0; background: rgba(255,255,255,.15);
                            color:#fff; padding:8px 12px; border-radius:8px; cursor:pointer; }
+  a {
+      color: #248a3d;
+      text-decoration: none;
+  }
+
+  a:hover {
+      text-decoration: underline;
+  }
 </style>
 </head>
 <body>
