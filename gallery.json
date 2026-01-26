@@ -1,33 +1,197 @@
 [
-  "./images/ankunft/1000010883.jpg",
-  "./images/ankunft/1000010956.jpg",
-  "./images/ankunft/DSCF4663.JPG",
-  "./images/die_uni/AnD.jpeg",
-  "./images/die_uni/DSCF4818.JPG",
-  "./images/die_uni/ausblick.jpg",
-  "./images/die_uni/sunset.JPG",
-  "./images/die_uni/the_guys.jpeg",
-  "./images/die_uni/the_guys2.jpeg",
-  "./images/gallerie/DSCF4624.JPG",
-  "./images/gallerie/DSCF4638.JPG",
-  "./images/gallerie/DSCF4649.JPG",
-  "./images/gallerie/DSCF4698.JPG",
-  "./images/gallerie/DSCF4712.JPG",
-  "./images/gallerie/DSCF4713.JPG",
-  "./images/gallerie/DSCF4721.JPG",
-  "./images/gallerie/DSCF4722.JPG",
-  "./images/gallerie/DSCF4742.JPG",
-  "./images/gallerie/DSCF4762.JPG",
-  "./images/gallerie/DSCF4763.JPG",
-  "./images/gallerie/DSCF4767.JPG",
-  "./images/gallerie/DSCF4769.JPG",
-  "./images/gallerie/DSCF4779.JPG",
-  "./images/gallerie/DSCF4780.JPG",
-  "./images/gallerie/DSCF4799.JPG",
-  "./images/gallerie/DSCF4801.JPG",
-  "./images/gallerie/DSCF4804.JPG",
-  "./images/gallerie/DSCF4805.JPG",
-  "./images/gallerie/DSCF4807.JPG",
-  "./images/gallerie/DSCF4811.JPG",
-  "./images/gallerie/DSCF4817.JPG"
+  {
+    "src": "./images/wandern/PXL_20260124_053353721.MP.jpg",
+    "takenAt": "2026-01-24T13:33:53Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/wandern/PXL_20260124_043927804.jpg",
+    "takenAt": "2026-01-24T12:39:27Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/wandern/PXL_20260124_043159731.jpg",
+    "takenAt": "2026-01-24T12:31:59Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/wandern/PXL_20260124_023257443.jpg",
+    "takenAt": "2026-01-24T10:32:57Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/wandern/PXL_20260117_095058007.PANO.jpg",
+    "takenAt": "2026-01-17T17:50:58Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/wandern/PXL_20260117_093923070.jpg",
+    "takenAt": "2026-01-17T17:39:23Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/die_uni/AnD.jpeg",
+    "takenAt": "2026-01-11T20:12:34Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/die_uni/the_guys2.jpeg",
+    "takenAt": "2026-01-11T20:09:54Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/die_uni/the_guys.jpeg",
+    "takenAt": "2026-01-11T19:51:34Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/die_uni/DSCF4818.JPG",
+    "takenAt": "2026-01-10T17:42:48Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/gallerie/DSCF4817.JPG",
+    "takenAt": "2026-01-10T17:42:25Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/gallerie/DSCF4811.JPG",
+    "takenAt": "2026-01-10T17:40:53Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/die_uni/sunset.JPG",
+    "takenAt": "2026-01-10T17:38:23Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/gallerie/DSCF4807.JPG",
+    "takenAt": "2026-01-10T17:38:23Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/gallerie/DSCF4805.JPG",
+    "takenAt": "2026-01-10T17:37:28Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/gallerie/DSCF4804.JPG",
+    "takenAt": "2026-01-10T17:36:43Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/gallerie/DSCF4801.JPG",
+    "takenAt": "2026-01-10T17:35:08Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/gallerie/DSCF4799.JPG",
+    "takenAt": "2026-01-10T17:31:35Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/gallerie/DSCF4780.JPG",
+    "takenAt": "2026-01-10T15:23:52Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/gallerie/DSCF4779.JPG",
+    "takenAt": "2026-01-10T15:23:20Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/gallerie/DSCF4769.JPG",
+    "takenAt": "2026-01-10T14:06:16Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/gallerie/DSCF4767.JPG",
+    "takenAt": "2026-01-10T14:03:01Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/gallerie/DSCF4763.JPG",
+    "takenAt": "2026-01-10T13:16:21Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/gallerie/DSCF4762.JPG",
+    "takenAt": "2026-01-10T12:27:49Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/gallerie/DSCF4742.JPG",
+    "takenAt": "2026-01-07T22:17:00Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/gallerie/DSCF4722.JPG",
+    "takenAt": "2026-01-07T22:12:56Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/gallerie/DSCF4721.JPG",
+    "takenAt": "2026-01-07T22:12:52Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/gallerie/DSCF4713.JPG",
+    "takenAt": "2026-01-07T20:18:12Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/gallerie/DSCF4712.JPG",
+    "takenAt": "2026-01-07T20:17:58Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/gallerie/DSCF4698.JPG",
+    "takenAt": "2026-01-07T19:57:32Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/die_uni/ausblick.jpg",
+    "takenAt": "2026-01-03T07:17:47Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/ankunft/1000010956.jpg",
+    "takenAt": "2026-01-02T09:53:39Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/ankunft/DSCF4663.JPG",
+    "takenAt": "2026-01-01T14:07:33Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/gallerie/DSCF4649.JPG",
+    "takenAt": "2026-01-01T13:54:25Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/gallerie/DSCF4638.JPG",
+    "takenAt": "2026-01-01T13:40:48Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/gallerie/DSCF4624.JPG",
+    "takenAt": "2026-01-01T08:54:57Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/ankunft/1000010883.jpg",
+    "takenAt": "2025-12-31T09:44:46Z",
+    "takenAtSource": "exif"
+  },
+  {
+    "src": "./images/map/google_map.jpg",
+    "takenAt": "2025-12-22T00:25:26Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/map/hongkong-city-map.jpg",
+    "takenAt": "2013-10-14T11:47:32Z",
+    "takenAtSource": "exif"
+  }
 ]

@@ -1,6 +1,4 @@
 
-
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -10,105 +8,50 @@
 <style>
   :root {
     --gap: 10px;
-    --tile-min: 160px;
     --radius: 10px;
     --bg: #0b0d0f; --card: #14171a; --text: #e8eaed;
     --accent: #248a3d;
     --header-sticky-bg: #0b0d0fF2;
   }
   * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif;
-    background: var(--bg); color: var(--text);
-  }
+  body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif;
+         background: var(--bg); color: var(--text); }
   header { padding: 20px; text-align: center; }
   a { color: var(--accent); text-decoration: none; }
   a:hover { text-decoration: underline; }
 
-  /* Week section */
-  .week {
-    max-width: 1200px;
-    margin: 0 auto 38px;
-    padding: 0 10px;
-  }
+  .week { max-width: 1200px; margin: 0 auto 38px; padding: 0 10px; }
   .week-title {
-    position: sticky; top: 0;
-    z-index: 5;
-    margin: 0 0 8px;
-    padding: 10px 6px;
+    position: sticky; top: 0; z-index: 5;
+    margin: 0 0 8px; padding: 10px 6px;
     font-size: 16px; font-weight: 600; letter-spacing: 0.2px;
-    background: var(--header-sticky-bg);
-    backdrop-filter: blur(6px);
+    background: var(--header-sticky-bg); backdrop-filter: blur(6px);
     border-bottom: 1px solid #1f2429;
   }
-  .week-title small { opacity: .7; font-weight: 500; }
 
-  /* Responsive rows of thumbnails (keeps the look you had) */
-  .gallery {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 0; /* contained by .week */
-  }
-
-  /* Thumbnail card */
+  .gallery { display: flex; flex-wrap: wrap; gap: 10px; padding: 0; }
   .gallery figure {
-    margin: 0;
-    border-radius: 10px;
-    background: #14171a;
-    overflow: hidden;
-    box-shadow: 0 6px 20px rgba(0,0,0,.25);
-
-    /* Prevent layout shift while image loads */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin: 0; border-radius: var(--radius); background: var(--card);
+    overflow: hidden; box-shadow: 0 6px 20px rgba(0,0,0,.25);
+    display: flex; align-items: center; justify-content: center;
   }
-
-  /* Keep original aspect ratio: fixed height, auto width */
   .gallery figure > img {
-    height: 200px;          /* row height — adjust to taste */
-    width: auto;            /* preserve aspect ratio */
-    display: block;
-    object-fit: contain;
+    height: 200px; width: auto; display: block; object-fit: contain;
     transition: transform .25s ease, opacity .25s ease;
   }
-  .gallery figure:hover > img {
-    transform: scale(1.02);
-    opacity: .98;
-  }
+  .gallery figure:hover > img { transform: scale(1.02); opacity: .98; }
+  @media (min-width:768px){ .gallery figure > img { height: 220px; } }
+  @media (min-width:1024px){ .gallery figure > img { height: 240px; } }
 
-  @media (min-width:768px){
-    .gallery figure > img { height: 220px; }
-  }
-  @media (min-width:1024px){
-    .gallery figure > img { height: 240px; }
-  }
-
-  /* Lightbox */
-  .lightbox {
-    position: fixed; inset: 0; display:none; align-items:center; justify-content:center;
-    background: rgba(0,0,0,.92); padding:2vw; z-index: 9999;
-  }
+  .lightbox { position: fixed; inset: 0; display:none; align-items:center; justify-content:center;
+              background: rgba(0,0,0,.92); padding:2vw; z-index: 9999; }
   .lightbox.open { display:flex; }
-  .lightbox img {
-    max-width: min(95vw, 1600px);
-    max-height: 95vh;
-    border-radius: var(--radius);
-    box-shadow: 0 20px 60px rgba(0,0,0,.5);
-  }
-  .lightbox button.close {
-    position:absolute; top:10px; right:10px;
-    border:0; background: rgba(255,255,255,.15);
-    color:#fff; padding:8px 12px; border-radius:8px; cursor:pointer;
-  }
+  .lightbox img { max-width: min(95vw, 1600px); max-height: 95vh; border-radius: var(--radius);
+                  box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+  .lightbox button.close { position:absolute; top:10px; right:10px; border:0; background: rgba(255,255,255,.15);
+                           color:#fff; padding:8px 12px; border-radius:8px; cursor:pointer; }
 
-  /* Subtle loading text */
-  .status {
-    max-width: 1200px; margin: 0 auto; padding: 0 10px 16px;
-    opacity: .7; font-size: 14px;
-  }
+  .status { max-width: 1200px; margin: 0 auto; padding: 0 10px 16px; opacity: .7; font-size: 14px; }
 </style>
 </head>
 <body>
@@ -134,242 +77,72 @@
   const lightImg  = document.getElementById('lightboxImg');
   const closeBtn  = lightbox.querySelector('button.close');
 
+  statusEl.textContent = 'Lade Galerie-Daten …';
   const res = await fetch('./gallery.json', { cache: 'no-cache' });
   if (!res.ok) {
     weeksRoot.innerHTML = '<p style="opacity:.7">Could not load gallery.json.</p>';
     return;
   }
-  const urls = await res.json();
+  /** @type {{src:string, takenAt:string|null}[]} */
+  const items = await res.json();
 
-  statusEl.textContent = 'Reading dates…';
+  const meta = items.map((it, index) => ({
+    url: it.src,
+    takenAt: it.takenAt ? new Date(it.takenAt) : null,
+    index
+  }));
 
-  // Concurrency control to avoid hammering the browser
-  async function mapLimit(items, limit, worker) {
-    const results = new Array(items.length);
-    let i = 0, active = 0;
-    return new Promise((resolve, reject) => {
-      const next = () => {
-        while (active < limit && i < items.length) {
-          const idx = i++, item = items[idx];
-          active++;
-          Promise.resolve(worker(item, idx))
-            .then(res => { results[idx] = res; })
-            .catch(err => { results[idx] = null; console.error(err); })
-            .finally(() => { active--; (i >= items.length && active === 0) ? resolve(results) : next(); });
-        }
-      };
-      next();
-    });
-  }
-
-  // ---- Date extraction priority: EXIF DateTimeOriginal -> Last-Modified header -> filename fallback
-  async function getTakenDate(url) {
-    // 1) EXIF
-    try {
-      const exifDate = await readExifDate(url);
-      if (exifDate) return exifDate;
-    } catch (e) {
-      // ignore, fall through
-    }
-    // 2) HEAD Last-Modified (fast and cheap)
-    try {
-      const head = await fetch(url, { method: 'HEAD', cache: 'no-cache' });
-      const lm = head.headers.get('last-modified');
-      if (lm) return new Date(lm);
-    } catch (e) {
-      // ignore
-    }
-    // 3) Filename hint (YYYYMMDD_HHMMSS or DSCFxxxx etc. -> null if not matched)
-    const fn = url.split('/').pop();
-    const guess = guessDateFromFilename(fn);
-    return guess || null;
-  }
-
-  function guessDateFromFilename(name) {
-    // Common patterns: 2024-01-05, 20240105, 2024_01_05, 2024-01-05_14-22-31
-    const s = name;
-    let m = s.match(/(20\d{2})[-_]?(\d{2})[-_]?(\d{2})[T_\- ]?(\d{2})?:?(\d{2})?:?(\d{2})?/);
-    if (!m) return null;
-    const [_, y, mo, d, hh='12', mm='00', ss='00'] = m;
-    const dt = new Date(Number(y), Number(mo)-1, Number(d), Number(hh), Number(mm), Number(ss));
-    return isNaN(+dt) ? null : dt;
-  }
-
-  // Minimal EXIF parser for JPEG to get DateTimeOriginal (0x9003)
-  async function readExifDate(url) {
-    // We fetch the whole image; for many large images you could optimize by using Range requests.
-    const r = await fetch(url, { cache: 'no-cache' });
-    if (!r.ok) throw new Error('image fetch failed');
-    const blob = await r.blob();
-    // Quick reject non-JPEG: many iPhones/DSCs are JPEG; PNG usually has no EXIF
-    if (blob.type && !/jpe?g/i.test(blob.type)) return null;
-
-    const ab = await blob.arrayBuffer();
-    const dv = new DataView(ab);
-    // JPEG starts with 0xFFD8
-    if (dv.getUint8(0) !== 0xFF || dv.getUint8(1) !== 0xD8) return null;
-
-    let offset = 2;
-    while (offset + 4 < dv.byteLength) {
-      if (dv.getUint8(offset) !== 0xFF) break;
-      const marker = dv.getUint8(offset + 1);
-      const size   = dv.getUint16(offset + 2, false);
-      if (marker === 0xE1) { // APP1
-        // Check "Exif\0\0"
-        const ex0 = offset + 4;
-        if (ex0 + 6 <= dv.byteLength &&
-            dv.getUint8(ex0)   === 0x45 && dv.getUint8(ex0+1) === 0x78 &&
-            dv.getUint8(ex0+2) === 0x69 && dv.getUint8(ex0+3) === 0x66 &&
-            dv.getUint8(ex0+4) === 0x00 && dv.getUint8(ex0+5) === 0x00) {
-          const tiff = ex0 + 6;
-          const isLittle = dv.getUint16(tiff, false) === 0x4949; // "II"
-          const le = isLittle;
-          if (!isLittle && dv.getUint16(tiff, false) !== 0x4D4D) return null;
-          if (dv.getUint16(tiff + 2, le) !== 0x002A) return null;
-          const ifd0Off = dv.getUint32(tiff + 4, le);
-          const dt = parseExifFromTIFF(dv, tiff, ifd0Off, le);
-          if (dt) return dt;
-        }
-      }
-      offset += 2 + size;
-    }
-    return null;
-  }
-
-  function parseExifFromTIFF(dv, tiffStart, ifd0Offset, le) {
-    function getAsciiAt(valueOffset, count) {
-      const abs = tiffStart + valueOffset;
-      let s = '';
-      for (let i=0; i<count && abs+i < dv.byteLength; i++) {
-        const c = dv.getUint8(abs+i);
-        if (c === 0) break;
-        s += String.fromCharCode(c);
-      }
-      return s;
-    }
-    function readIFD(offset) {
-      const abs = tiffStart + offset;
-      if (abs + 2 > dv.byteLength) return { entries: [], next: 0 };
-      const num = dv.getUint16(abs, le);
-      const entries = [];
-      for (let i=0; i<num; i++) {
-        const base = abs + 2 + i*12;
-        if (base + 12 > dv.byteLength) break;
-        const tag   = dv.getUint16(base, le);
-        const type  = dv.getUint16(base+2, le);
-        const count = dv.getUint32(base+4, le);
-        const value = dv.getUint32(base+8, le);
-        entries.push({ tag, type, count, value });
-      }
-      const next = dv.getUint32(abs + 2 + num*12, le);
-      return { entries, next };
-    }
-
-    // IFD0
-    const ifd0 = readIFD(ifd0Offset);
-    let exifIFDPointer = null;
-    let dateTimeIFD0 = null;
-
-    for (const e of ifd0.entries) {
-      if (e.tag === 0x8769) { // ExifIFDPointer
-        exifIFDPointer = e.value;
-      } else if (e.tag === 0x0132 && e.type === 2) { // DateTime
-        const off = e.count > 4 ? e.value : 0; // ASCII usually offset
-        dateTimeIFD0 = getAsciiAt(off, e.count);
-      }
-    }
-
-    // Prefer DateTimeOriginal in Exif IFD
-    if (exifIFDPointer != null) {
-      const exifIFD = readIFD(exifIFDPointer);
-      for (const e of exifIFD.entries) {
-        if ((e.tag === 0x9003 || e.tag === 0x9004) && e.type === 2) { // DateTimeOriginal or Digitized
-          const txt = getAsciiAt(e.value, e.count);
-          const d = parseExifDateString(txt);
-          if (d) return d;
-        }
-      }
-    }
-
-    // Fallback to IFD0 DateTime
-    if (dateTimeIFD0) {
-      const d = parseExifDateString(dateTimeIFD0);
-      if (d) return d;
-    }
-    return null;
-  }
-
-  function parseExifDateString(s) {
-    // EXIF format: "YYYY:MM:DD HH:MM:SS"
-    const m = s && s.match(/^(\d{4}):(\d{2}):(\d{2})[ T](\d{2}):(\d{2}):(\d{2})$/);
-    if (!m) return null;
-    const [_, y, mo, d, hh, mm, ss] = m.map(Number);
-    const dt = new Date(y, mo-1, d, hh, mm, ss); // local time (for week grouping)
-    return isNaN(+dt) ? null : dt;
-  }
+  // Sort newest first
+  meta.sort((a, b) => {
+    if (a.takenAt && b.takenAt) return b.takenAt - a.takenAt || a.index - b.index;
+    if (a.takenAt) return -1;
+    if (b.takenAt) return 1;
+    return a.index - b.index;
+  });
 
   // ISO week helpers (local time)
   function startOfISOWeekLocal(d) {
-    const dt = new Date(d);
-    dt.setHours(0,0,0,0);
+    const dt = new Date(d); dt.setHours(0,0,0,0);
     const day = (dt.getDay() + 6) % 7; // Mon=0..Sun=6
     dt.setDate(dt.getDate() - day);
     return dt;
   }
   function endOfISOWeekLocal(d) {
     const s = startOfISOWeekLocal(d);
-    const e = new Date(s);
-    e.setDate(s.getDate() + 6);
-    e.setHours(23,59,59,999);
+    const e = new Date(s); e.setDate(s.getDate() + 6); e.setHours(23,59,59,999);
     return e;
   }
   function isoWeekYearAndNumber(d) {
-    // Thursday method in local time
-    const dt = new Date(d);
-    dt.setHours(0,0,0,0);
-    const day = (dt.getDay() + 6) % 7; // 0..6
-    const th = new Date(dt);
-    th.setDate(dt.getDate() + (3 - day)); // Move to Thursday
+    const dt = new Date(d); dt.setHours(0,0,0,0);
+    const day = (dt.getDay() + 6) % 7;
+    const th = new Date(dt); th.setDate(dt.getDate() + (3 - day));
     const year = th.getFullYear();
     const jan4 = new Date(year, 0, 4);
     const jan4Day = (jan4.getDay() + 6) % 7;
-    const start = new Date(jan4);
-    start.setDate(jan4.getDate() - jan4Day); // Monday of week 1
+    const start = new Date(jan4); start.setDate(jan4.getDate() - jan4Day);
     const week = Math.floor((dt - start) / 86400000 / 7) + 1;
     return { year, week };
+  }
+  function weekKey(d) {
+    if (!d) return 'unknown';
+    const { year, week } = isoWeekYearAndNumber(d);
+    return `${year}-W${String(week).padStart(2,'0')}`;
   }
   function fmtWeekTitle(d) {
     const { year, week } = isoWeekYearAndNumber(d);
     const s = startOfISOWeekLocal(d);
     const e = endOfISOWeekLocal(d);
-    const fmt = (x) => x.toLocaleDateString(undefined, { day:'2-digit', month:'short' });
-    return { label: `Week ${year}-W${String(week).padStart(2,'0')} · ${fmt(s)} – ${fmt(e)}`, year, week, start: s };
+    const fmt = x => x.toLocaleDateString(undefined, { day:'2-digit', month:'short' });
+    return { label: `Week ${year}-W${String(week).padStart(2,'0')} · ${fmt(s)} – ${fmt(e)}`, start:s };
   }
 
-  // Build metadata for each url
-  const meta = await mapLimit(urls, 6, async (url, index) => {
-    const takenAt = await getTakenDate(url);
-    return { url, takenAt, index };
-  });
-
-  // Sort by takenAt ascending; nulls last; stable by original index
-  meta.sort((a, b) => {
-    if (a.takenAt && b.takenAt) return a.takenAt - b.takenAt || a.index - b.index;
-    if (a.takenAt) return -1;
-    if (b.takenAt) return 1;
-    return a.index - b.index;
-  });
-
-  // Group by ISO week
-  const groups = new Map(); // key -> {title, items[]}
+  // Group by week
+  const groups = new Map();
   for (const m of meta) {
-    const key = m.takenAt ? (() => {
-      const { year, week } = isoWeekYearAndNumber(m.takenAt);
-      return `${year}-W${String(week).padStart(2,'0')}`;
-    })() : 'unknown';
+    const key = weekKey(m.takenAt);
     if (!groups.has(key)) {
       let title = 'Unknown week';
-      let sortKey = Number.MAX_SAFE_INTEGER;
+      let sortKey = -Infinity;
       if (m.takenAt) {
         const info = fmtWeekTitle(m.takenAt);
         title = info.label;
@@ -380,8 +153,14 @@
     groups.get(key).items.push(m);
   }
 
-  // Sort groups by week start
-  const sortedGroups = [...groups.values()].sort((a, b) => a.sortKey - b.sortKey);
+  // Sort groups by week start DESC; unknown last
+  const sortedGroups = [...groups.entries()]
+    .sort((a, b) => {
+      if (a[0] === 'unknown') return 1;
+      if (b[0] === 'unknown') return -1;
+      return b[1].sortKey - a[1].sortKey;
+    })
+    .map(([_, v]) => v);
 
   // Render
   weeksRoot.innerHTML = '';
@@ -397,6 +176,14 @@
     const grid = document.createElement('div');
     grid.className = 'gallery';
 
+    // Newest first within week
+    group.items.sort((a, b) => {
+      if (a.takenAt && b.takenAt) return b.takenAt - a.takenAt || a.index - b.index;
+      if (a.takenAt) return -1;
+      if (b.takenAt) return 1;
+      return a.index - b.index;
+    });
+
     for (const { url } of group.items) {
       const fig = document.createElement('figure');
       fig.dataset.full = url;
@@ -405,7 +192,7 @@
       img.src = url;
       img.loading = 'lazy';
       img.decoding = 'async';
-      img.alt = url.split('/').pop().replace(/\.[^.]+$/,'').replace(/[-_]/g,' ');
+      img.alt = url.split('/').pop().replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
 
       fig.appendChild(img);
       fig.addEventListener('click', () => openLightbox(url, img.alt));
