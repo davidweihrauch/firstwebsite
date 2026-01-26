@@ -50,22 +50,12 @@
     "takenAtSource": "exif"
   },
   {
-    "src": "./images/gallerie/DSCF4817.JPG",
-    "takenAt": "2026-01-10T17:42:25Z",
-    "takenAtSource": "exif"
-  },
-  {
     "src": "./images/gallerie/DSCF4811.JPG",
     "takenAt": "2026-01-10T17:40:53Z",
     "takenAtSource": "exif"
   },
   {
     "src": "./images/die_uni/sunset.JPG",
-    "takenAt": "2026-01-10T17:38:23Z",
-    "takenAtSource": "exif"
-  },
-  {
-    "src": "./images/gallerie/DSCF4807.JPG",
     "takenAt": "2026-01-10T17:38:23Z",
     "takenAtSource": "exif"
   },
@@ -182,16 +172,6 @@
   {
     "src": "./images/ankunft/1000010883.jpg",
     "takenAt": "2025-12-31T09:44:46Z",
-    "takenAtSource": "exif"
-  },
-  {
-    "src": "./images/map/google_map.jpg",
-    "takenAt": "2025-12-22T00:25:26Z",
-    "takenAtSource": "mtime"
-  },
-  {
-    "src": "./images/map/hongkong-city-map.jpg",
-    "takenAt": "2013-10-14T11:47:32Z",
     "takenAtSource": "exif"
   }
 ]
