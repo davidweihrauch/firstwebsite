@@ -1,5 +1,175 @@
 [
   {
+    "src": "./images/gallerie3/wasser.jpeg",
+    "takenAt": "2026-02-16T21:02:41Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/gallerie3/acool.jpeg",
+    "takenAt": "2026-02-16T21:02:31Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/gallerie3/pier.jpeg",
+    "takenAt": "2026-02-16T21:02:20Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/gallerie3/drache2.jpeg",
+    "takenAt": "2026-02-16T21:02:02Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/gallerie3/drache.jpeg",
+    "takenAt": "2026-02-16T21:01:51Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/gallerie3/bowl.jpeg",
+    "takenAt": "2026-02-16T21:01:30Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/gallerie3/tv.jpeg",
+    "takenAt": "2026-02-16T21:01:21Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/gallerie3/gelb.jpeg",
+    "takenAt": "2026-02-16T21:01:13Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/gallerie3/techno.jpeg",
+    "takenAt": "2026-02-16T21:00:59Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/gallerie3/seilziehen.jpeg",
+    "takenAt": "2026-02-16T21:00:49Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/gallerie3/drunk.jpeg",
+    "takenAt": "2026-02-16T21:00:33Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/gallerie3/cool.jpeg",
+    "takenAt": "2026-02-16T21:00:20Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/gallerie3/hydrant.jpeg",
+    "takenAt": "2026-02-16T20:59:26Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/gallerie3/graf1.jpeg",
+    "takenAt": "2026-02-16T20:58:47Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/gallerie3/mtrhandle.jpeg",
+    "takenAt": "2026-02-16T20:58:07Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/gallerie3/david.jpeg",
+    "takenAt": "2026-02-16T20:57:38Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/gallerie3/alejandro.jpeg",
+    "takenAt": "2026-02-16T20:56:57Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/food/dimsum3.jpeg",
+    "takenAt": "2026-02-16T20:55:58Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/food/beer.jpeg",
+    "takenAt": "2026-02-16T20:55:32Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/food/spicy.jpeg",
+    "takenAt": "2026-02-16T20:55:22Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/food/group.jpeg",
+    "takenAt": "2026-02-16T20:55:08Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/food/bao.jpeg",
+    "takenAt": "2026-02-16T20:51:14Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/food/ebeneezer.jpeg",
+    "takenAt": "2026-02-16T20:43:37Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/food/idk.jpeg",
+    "takenAt": "2026-02-16T20:43:17Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/food/salat.jpeg",
+    "takenAt": "2026-02-16T20:43:02Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/food/dimsum2.jpeg",
+    "takenAt": "2026-02-16T20:42:51Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/food/dimsum.jpeg",
+    "takenAt": "2026-02-16T20:42:41Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/food/chenchao2.jpeg",
+    "takenAt": "2026-02-16T20:42:26Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/food/chenchao.jpeg",
+    "takenAt": "2026-02-16T20:42:17Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/food/adc.jpeg",
+    "takenAt": "2026-02-16T20:41:42Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/food/WhatsApp Image 2026-02-15 at 20.27.37.jpeg",
+    "takenAt": "2026-02-16T20:41:19Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/food/WhatsApp Image 2026-02-15 at 20.27.36.jpeg",
+    "takenAt": "2026-02-16T20:41:13Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/food/WhatsApp Image 2026-02-15 at 20.27.34.jpeg",
+    "takenAt": "2026-02-16T20:41:01Z",
+    "takenAtSource": "mtime"
+  },
+  {
+    "src": "./images/food/ramen.jpeg",
+    "takenAt": "2026-02-16T20:40:43Z",
+    "takenAtSource": "mtime"
+  },
+  {
     "src": "./images/gallerie2/1.jpeg",
     "takenAt": "2026-02-09T15:39:31Z",
     "takenAtSource": "mtime"
