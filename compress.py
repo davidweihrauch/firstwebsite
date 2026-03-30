@@ -1,69 +1,65 @@
 import os
 from PIL import Image, ImageOps
+import time
+import tempfile
+import shutil
 
-# === CONFIG ===
-INPUT_DIR = "images/gallerie4"
-OUTPUT_DIR = "images/gallerie4_comp"
 TARGET_SIZE_MB = 2
 TARGET_SIZE_BYTES = TARGET_SIZE_MB * 1024 * 1024
 
-os.makedirs(OUTPUT_DIR, exist_ok=True)
+def compress_in_place(jpg_path):
+    # Save original filesystem timestamps
+    stat = os.stat(jpg_path)
+    original_times = (stat.st_atime, stat.st_mtime)
 
-def compress_to_target_size(input_path, output_path, target_size):
-    img = Image.open(input_path)
-
-    # Read EXIF data (includes date + orientation)
+    img = Image.open(jpg_path)
     exif_data = img.info.get("exif")
 
-    # Normalize orientation (rotate pixels correctly)
+    # Fix orientation (rotate pixels properly)
     img = ImageOps.exif_transpose(img)
 
-    # JPEG requires RGB
     if img.mode in ("RGBA", "P"):
         img = img.convert("RGB")
+
+    # Create temp file in same directory
+    dir_name = os.path.dirname(jpg_path)
+    with tempfile.NamedTemporaryFile(delete=False, dir=dir_name, suffix=".jpg") as tmp:
+        temp_path = tmp.name
 
     low, high = 10, 95
     best_quality = high
 
-    # Binary search for quality
+    # Binary search for ~2 MB
     while low <= high:
         mid = (low + high) // 2
+        img.save(temp_path, "JPEG", quality=mid, optimize=True, exif=exif_data)
 
-        img.save(
-            output_path,
-            "JPEG",
-            quality=mid,
-            optimize=True,
-            exif=exif_data
-        )
-
-        size = os.path.getsize(output_path)
-
-        if size > target_size:
+        size = os.path.getsize(temp_path)
+        if size > TARGET_SIZE_BYTES:
             high = mid - 1
         else:
             best_quality = mid
             low = mid + 1
 
-    # Final save at best quality
-    img.save(
-        output_path,
-        "JPEG",
-        quality=best_quality,
-        optimize=True,
-        exif=exif_data
-    )
+    # Final save
+    img.save(temp_path, "JPEG", quality=best_quality, optimize=True, exif=exif_data)
+
+    # Restore filesystem timestamps
+    os.utime(temp_path, original_times)
+
+    # Atomically replace original
+    shutil.move(temp_path, jpg_path)
 
 def main():
-    for filename in os.listdir(INPUT_DIR):
-        if filename.lower().endswith((".jpg", ".jpeg")):
-            input_path = os.path.join(INPUT_DIR, filename)
-            output_path = os.path.join(OUTPUT_DIR, filename)
+    folder = "images/gallerie4"
 
-            compress_to_target_size(input_path, output_path, TARGET_SIZE_BYTES)
+    for name in os.listdir(folder):
+        if name.lower().endswith((".jpg", ".jpeg")):
+            path = os.path.join(folder, name)
+            compress_in_place(path)
 
-            final_size = os.path.getsize(output_path) / (1024 * 1024)
-            print(f"{filename}: {final_size:.2f} MB")
+            size_mb = os.path.getsize(path) / (1024 * 1024)
+            print(f"{name}: {size_mb:.2f} MB")
 
 if __name__ == "__main__":
     main()
